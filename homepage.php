@@ -1,20 +1,22 @@
 <?php
 //Template Name: Homepage
 get_header(); ?>
-		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-			<?php if($home_meta){
-				$pagemeta = $home_meta->the_meta(); } ?>
+<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 				
 <div id="z0" class="zone cols anim">
     <div class="wrap singlecol">
-			<?php echo $pagemeta['anim']; ?>
+			<?php the_field('video_embed'); ?>
     </div>
 </div>
 <div id="z1" class="zone cols home">
     <div class="wrap singlecol">
         <div class="leftcol suppbox slider">
-			<?php if($pagemeta['slides']){
-				echo $pagemeta['slides'];
+			<?php if(get_field('main_images')){
+                while(has_sub_field('main_images')){ 
+                    if(get_sub_field('image')) { ?>
+                    <img src="<?php the_sub_field('image'); ?>" alt="" />
+                <?php } 
+                }
 			} ?>
         </div>
         <div class="rightcol textbox">
@@ -28,43 +30,62 @@ get_header(); ?>
     </div>
     <div class="clear"></div>
 </div>
-        <?php endwhile; else: ?>
-        <p><?php _e('Sorry, no posts matched your criteria.'); ?></p>
-        <?php endif; ?>
-<?php if($home_meta){
+<?php endwhile; else: ?>
+<p><?php _e('Sorry, no posts matched your criteria.'); ?></p>
+<?php endif; ?>
+<?php
 	$zbg = array( 'lt-greenish-brown','greenish-brown', 'dk-blue'); 
-	if($pagemeta['zone']){ $i=0;
-		foreach($pagemeta['zone'] as $zone){
-			$zbgsel = $i % 3; ?>
+	if(get_field('case_studies')){
+        $i=0;
+        while(has_sub_field('case_studies')){ 
+			$zbgsel = $i % 3; 
+?>
+
 <div class="zone cols <?php echo $zbg[$zbgsel]; ?>">
 	<div class="wrap singlecol">
-	<?php if ($i % 2 != 0){ ?>
+	
+    <?php if ($i % 2 != 0){ ?>
         <div class="rightcol textbox">
-            <h3><?php echo $zone['title']; ?></h3>
-            <p class="subtitle"><?php echo $zone['subtitle']; ?></p>
-        	<div class="entry">
-                <?php echo apply_filters('the_content', $zone['textarea']); ?>
+            <h3><?php the_sub_field('headline'); ?></h3>
+            <p class="subtitle"><?php the_sub_field('subheadline'); ?></p>
+            <div class="entry">
+                <?php the_sub_field('content'); ?>
             </div>
         </div>
         <div class="leftcol suppbox">
-                <?php if($zone['image'] !='')  echo '<div class="image">'.$zone['image'].'</div>'; ?>
-                <div class="quote"><?php echo apply_filters('the_content', $zone['quote']); ?></div>                
+            <?php if( get_sub_field('image') ) {
+                $attachment_id = get_sub_field('image');
+                $size = "medium"; // (thumbnail, medium, large, full or custom size)
+                 
+                $image = wp_get_attachment_image_src( $attachment_id, $size );
+
+                echo '<div class="image"><img src="'. $image[0] .'" ></div>'; 
+            } ?>
+            <div class="quote"><?php the_sub_field('quote'); ?></div>                
         </div>
+
     <?php }else{ ?>
-        <div class="rightcol suppbox">
-                <?php if($zone['image'] !='')  echo '<div class="image">'.$zone['image'].'</div>'; ?>
-                <div class="quote"><?php echo apply_filters('the_content', $zone['quote']); ?></div>                
-        </div>
         <div class="leftcol textbox">
-            <h3><?php echo $zone['title']; ?></h3>
-            <p class="subtitle"><?php echo $zone['subtitle']; ?></p>
-        	<div class="entry">
-                <?php echo apply_filters('the_content', $zone['textarea']); ?>
+            <h3><?php the_sub_field('headline'); ?></h3>
+            <p class="subtitle"><?php the_sub_field('subheadline'); ?></p>
+            <div class="entry">
+                <?php the_sub_field('content'); ?>
             </div>
         </div>
+        <div class="rightcol suppbox">
+            <?php if( get_sub_field('image') ) {
+                $attachment_id = get_sub_field('image');
+                $size = "medium"; // (thumbnail, medium, large, full or custom size)
+                 
+                $image = wp_get_attachment_image_src( $attachment_id, $size );
+
+                echo '<div class="image"><img src="'. $image[0] .'" ></div>'; 
+            } ?>
+            <div class="quote"><?php the_sub_field('quote'); ?></div>                
+        </div>
     <?php } ?>
+
     </div>
-    <div class="clear"></div>
 </div>
-<?php $i++; } } } ?>
+<?php $i++; } } ?>
 <?php get_footer(); ?>

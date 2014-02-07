@@ -7,12 +7,9 @@ get_header(); ?>
         <div class="leftcol suppbox">
 			<?php the_post_thumbnail( 'large' ); ?>
         </div>
-        <div class="rightcol textbox">
-<?php if($famp_meta){
-	$pagemeta = $famp_meta->the_meta();?>
-			<h3><?php echo $pagemeta['title']; ?></h3>
-            <p class="famsubtitle"><?php echo $pagemeta['subtitle']; ?></p>
-<?php } ?>
+        <div class="rightcol textbox cf">
+				<h3><?php the_field('headline'); ?></h3>
+            <p class="famsubtitle"><?php the_field('subheadline'); ?></p>
         	<div class="entry">
             	<?php the_content(); ?>
             </div>
@@ -20,9 +17,7 @@ get_header(); ?>
         <?php endwhile; else: ?>
         <p><?php _e('Sorry, no posts matched your criteria.'); ?></p>
         <?php endif; ?>
-        <div class="clear"></div>
     </div>
-    <div class="clear"></div>
 </div>
 <div id="events" class="zone lt-greenish-brown">
 	<div class="wrap thincol">
@@ -31,7 +26,7 @@ get_header(); ?>
 		$args = array(
 			'posts_per_page'     => 25,
 			'orderby'         => 'meta_value',
-			'meta_key' => '_event_date',
+			'meta_key' => 'event_date',
 			'order'           => 'ASC',
 			'post_type'       => 'event',
 			'meta_query'=> array(
@@ -44,50 +39,43 @@ get_header(); ?>
 		);
 	$query = new WP_Query( $args );
 	while ( $query->have_posts() ) : $query->the_post(); ?>
-		<?php if($events_mb) {
-			$pagemeta = $events_mb->the_meta();
-			if($pagemeta['sticky']=="1" ){ //loop through once to show stickies	?>
-		<div class="leftcol textbox<?php if($pagemeta['attend']=="1")echo ' attend'; ?>">
+		<?php if( get_field('sticky') ){ //loop through once to show stickies	?>
+		<div class="leftcol textbox<?php if( get_field('attend') )echo ' attend'; ?>">
             <h3><?php the_title(); ?></h3>
-            <p class="subtitle"><?php echo $pagemeta['subhead']; ?></p>
+            <p class="subtitle"><?php the_field('subheadline'); ?></p>
         	<div class="entry">
                 <?php the_content(); ?>
             </div>
             <h4 class="ptopics"><?php the_terms( $post->ID, 'event_type', '', ', ', ' ' ); ?></h4>
 		</div>
 		<div class="rightcol suppbox">
-			<?php $e_date = $pagemeta['date']; 
+			<?php $e_date = get_field('event_date'); 
 				$link = '';
-				if($pagemeta['link']) $link = '<a href="'.$pagemeta['link'].'">more info</a>';
+				if( get_field('link') ) $link = '<a href="'. get_field('link') .'">more info</a>';
 			 if($e_date && $e_date!='') echo '<div class="quote"><h3>'.date('M j, Y', strtotime($e_date)).'<br>'.$pagemeta['location'].'</h3><h4>'. $link .'</h4></div>'; ?>
 		</div>
-        <div class="clear"></div>
-			<?php }} ?>
-		<?php endwhile; // End the loop. Whew. 
+		<?php } ?>
+	<?php endwhile; // End the loop. Whew. 
 	while ( $query->have_posts() ) : $query->the_post(); ?>
-		<?php if($events_mb) {
-			$pagemeta = $events_mb->the_meta();
-			if($pagemeta['sticky']!="1" ){ //loop through once to show stickies	?>
-		<div class="leftcol textbox<?php if($pagemeta['attend']=="1")echo ' attend'; ?>">
+		<?php if( ! get_field('sticky') ){ //loop through once to show non-stickies	?>
+		<div class="leftcol textbox<?php if( get_field('attend') )echo ' attend'; ?>">
             <h3><?php the_title(); ?></h3>
-            <p class="subtitle"><?php echo $pagemeta['subhead']; ?></p>
+            <p class="subtitle"><?php the_field('subheadline'); ?></p>
         	<div class="entry">
                 <?php the_content(); ?>
             </div>
             <h4 class="ptopics"><?php the_terms( $post->ID, 'event_type', '', ', ', ' ' ); ?></h4>
 		</div>
 		<div class="rightcol suppbox">
-			<?php $e_date = $pagemeta['date']; 
+			<?php $e_date = get_field('date'); 
 				$link = '';
-				if($pagemeta['link']) $link = '<a href="'.$pagemeta['link'].'">more info</a>';
+				if( get_field('link') ) $link = '<a href="'. get_field('link') .'">more info</a>';
 			 if($e_date && $e_date!='') echo '<div class="quote"><h3>'.date('M j, Y', strtotime($e_date)).'<br>'.$pagemeta['location'].'</h3><h4>'. $link .'</h4></div>'; ?>
 		</div>
-        <div class="clear"></div>
-			<?php } } ?>
-		<?php endwhile; // End the loop. Whew. 
-		if(function_exists('wp_paginate')) {
-			wp_paginate();
-		} ?>
+
+		<?php } ?>
+	<?php endwhile; // End the loop. Whew. 
+		wp_paginate(); ?>
     </div>
 </div>
 

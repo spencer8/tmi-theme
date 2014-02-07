@@ -1,33 +1,30 @@
 <?php
 //Template Name: Contact
 get_header(); ?>
-<div id="z1" class="zone contact">
+<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+
+<div id="z1" class="zone contac cf">
 	<div class="wrap widepiccol">
-		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-<?php if($cont_meta){
-	$pagemeta = $cont_meta->the_meta();?>
+        
         <div class="leftcol mapbox">
-            <?php echo $pagemeta['gmap']; $deets = $pagemeta['cdeets'] ?></p>
+            <?php the_field('map'); ?></p>
         </div>
-<?php } ?>
         <div class="rightcol textbox">
-<?php if($famp_meta){
-	$pagemeta = $famp_meta->the_meta();?>
-			<h3><?php echo $pagemeta['title']; ?></h3>
-            <p class="subtitle"><?php echo $pagemeta['subtitle']; ?></p>
-<?php } ?>
+
+			<h3><?php the_field('heading'); ?></h3>
+            <p class="subtitle"><?php the_field('subheading'); ?></p>
+
         	<div class="entry">
             	<?php the_content(); ?>
-				<?php if($deets){
-                 echo apply_filters('the_content', $deets); ?>                
-                <?php } ?>
+				<?php the_field('contact_details'); ?>
             </div>
         </div>
     </div>
 </div>
-<div class="clear"></div>
-	<div class="zone subnav dialogue lt-greenish-brown press"><a name="press"><h2>PRESS &amp; Testimonials</h2></a></div>
-<div id="events" class="zone greenish-brown">
+<div class="zone subnav dialogue lt-greenish-brown press">
+    <a name="press"><h2>PRESS &amp; Testimonials</h2></a>
+</div>
+<div id="events" class="zone greenish-brown cf">
 		<?php if(get_field('press')) $rows = get_field('press'); foreach($rows as $row) { ?>
 	<div class="wrap thincol">
 		<div class="leftcol textbox">
@@ -45,12 +42,14 @@ get_header(); ?>
 				 <?php if($row['link']) echo '<h4><a href="'.$row['link'].'">full article</a></h4>'; ?>
 			 </div>
 		</div>
-        <div class="clear"></div>
 	</div>
 		<?php }  ?>
 </div>
-		<?php endwhile; else: ?>
-        <p><?php _e('Sorry, no posts matched your criteria.'); ?></p>
-        <?php endif; ?>
-    <div class="clear"></div>
+<?php endwhile; else: ?>
+ <div id="z1" class="zone contact">
+    <div class="wrap widepiccol">
+       <p><?php _e('Sorry, no posts matched your criteria.'); ?></p>
+    </div>
+</div>
+<?php endif; ?>
 <?php get_footer(); ?>

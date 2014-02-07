@@ -79,6 +79,23 @@ p, .entry ul {
 	margin: 0 auto;
 }
 .wrap > div {z-index:2;}
+
+/* Clearfix */
+.cf, .wrap {
+    *zoom: 1;
+}
+.cf:before, .cf:after,
+.wrap:before, .wrap:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after, .wrap:after {
+    clear: both;
+}
+
+
+
 /*******************/
 /* 1. HEADER */
 /*******************/
@@ -334,8 +351,9 @@ margin-bottom: 40px;
     font-weight: normal;
     text-transform: none;
 	color: #FFFFFF;
-    font-size: 1.25em;
+    font-size: 1em;
 	font-style: italic;
+	line-height: 1.4;
 }
 .zone .wrap.singlecol {
     width: 918px;	
@@ -370,6 +388,9 @@ margin-bottom: 40px;
 .singlecol .suppbox > img, .widepiccol .suppbox > img {
 	float:left;
 	display:block;
+}
+.textcol .entry > img.wp-post-image {
+	margin:0 1em 1em;
 }
 #z1 {
 	padding:0 0 40px;

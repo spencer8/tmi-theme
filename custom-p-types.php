@@ -31,7 +31,7 @@ function create_event() {
       'labels' => $labels,
       'public' => true,
       'hierarchical' => true,
-	  'has_archive' => true, //THIS IS CRUCIAL for use with Simple Page Ordering plugin
+	    'has_archive' => true, //THIS IS CRUCIAL for use with Simple Page Ordering plugin
       'menu_icon' => 'dashicons-calendar', // dashicons will be used in WP 3.8+
       'supports' => $supports
 	  
@@ -58,7 +58,7 @@ function hhs_event_edit_columns( $columns ) {
 
 function hhs_event_custom_columns( $column ) {
 	global $post;
-	$event_date = get_post_meta( $post->ID, '_event_date', true ); //this equals the prefix defeined in WPAlchemy_MetaBox class in events-spec.php + the key defined in the field in events-meta.php
+	$event_date = get_post_meta( $post->ID, 'event_date', true ); //this equals the prefix defeined in WPAlchemy_MetaBox class in events-spec.php + the key defined in the field in events-meta.php
 
 	switch ( $column ) {
 		case 'event-date' :
@@ -93,7 +93,7 @@ function hhs_event_sort( $vars ) {
 		$vars = array_merge(
 			$vars,
 			array(
-				'meta_key' => '_event_date', //this equals the prefix defeined in WPAlchemy_MetaBox class in menu-spec.php + the key defined in the field in menus-meta.php
+				'meta_key' => 'event_date', //this equals the prefix defeined in WPAlchemy_MetaBox class in menu-spec.php + the key defined in the field in menus-meta.php
 				'orderby' => 'meta_value'
 			)
 		);

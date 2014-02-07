@@ -30,16 +30,16 @@ function has_children($post_id) {
     if( count( $children ) != 0 ) { return true; } // Has Children
     else { return false; } // No children
 }
-
+/*
 if (!class_exists('WPAlchemy_MetaBox')) include_once WP_CONTENT_DIR . '/wpalchemy/MetaBox.php';
 
 //include_once 'metaboxes/setup.php';
-include_once 'metaboxes/fam-spec.php';
-include_once 'metaboxes/fampage-spec.php';
-include_once 'metaboxes/home-spec.php';
-include_once 'metaboxes/contact-spec.php';
-include_once 'metaboxes/events-spec.php';
-include_once 'metaboxes/post-spec.php';
+//include_once 'metaboxes/fam-spec.php';
+//include_once 'metaboxes/fampage-spec.php';
+//include_once 'metaboxes/home-spec.php';
+//include_once 'metaboxes/contact-spec.php';
+//include_once 'metaboxes/events-spec.php';
+//include_once 'metaboxes/post-spec.php';
 
 
 function kia_metabox_init(){
@@ -67,7 +67,7 @@ function kia_metabox_scripts(){
 /* 
  * Recreate the default filters on the_content
  * this will make it much easier to output the meta content with proper/expected formatting
-*/
+
 add_filter( 'meta_content', 'wptexturize'        );
 add_filter( 'meta_content', 'convert_smilies'    );
 add_filter( 'meta_content', 'convert_chars'      );
@@ -81,7 +81,7 @@ add_filter( 'meta_content', 'wpautop'            );
 add_filter( 'meta_content', 'shortcode_unautop'  );
 add_filter( 'meta_content', 'prepend_attachment' );
 
-
+*/
 
 //*******************************************
 // WP Nav Menus
