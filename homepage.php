@@ -32,7 +32,6 @@ get_header(); ?>
         <p><?php _e('Sorry, no posts matched your criteria.'); ?></p>
         <?php endif; ?>
 <?php if($home_meta){
-	//print_r($pagemeta);
 	$zbg = array( 'lt-greenish-brown','greenish-brown', 'dk-blue'); 
 	if($pagemeta['zone']){ $i=0;
 		foreach($pagemeta['zone'] as $zone){
