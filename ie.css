@@ -1,0 +1,7 @@
+#nav ul li:after {
+	content:"";
+}
+#nav ul li {
+	font-size: 18px;
+}
+#wrapper { zoom:1; width:100%; line-height:1.4; background-color:#E0F2ED; }
