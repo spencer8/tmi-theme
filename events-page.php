@@ -31,7 +31,7 @@ get_header(); ?>
 			'post_type'       => 'event',
 			'meta_query'=> array(
 			array(
-					'key' => '_event_date',
+					'key' => 'event_date',
 					'compare' => '>=',
 					'value' => $today,
 				)
@@ -52,7 +52,7 @@ get_header(); ?>
 			<?php $e_date = get_field('event_date'); 
 				$link = '';
 				if( get_field('link') ) $link = '<a href="'. get_field('link') .'">more info</a>';
-			 if($e_date && $e_date!='') echo '<div class="quote"><h3>'.date('M j, Y', strtotime($e_date)).'<br>'.$pagemeta['location'].'</h3><h4>'. $link .'</h4></div>'; ?>
+			 if( $e_date ) echo '<div class="quote"><h3>'.date('M j, Y', strtotime($e_date)).'<br>'.get_field('location').'</h3><h4>'. $link .'</h4></div>'; ?>
 		</div>
 		<?php } ?>
 	<?php endwhile; // End the loop. Whew. 
@@ -67,15 +67,14 @@ get_header(); ?>
             <h4 class="ptopics"><?php the_terms( $post->ID, 'event_type', '', ', ', ' ' ); ?></h4>
 		</div>
 		<div class="rightcol suppbox">
-			<?php $e_date = get_field('date'); 
+			<?php $e_date = get_field('event_date'); 
 				$link = '';
 				if( get_field('link') ) $link = '<a href="'. get_field('link') .'">more info</a>';
-			 if($e_date && $e_date!='') echo '<div class="quote"><h3>'.date('M j, Y', strtotime($e_date)).'<br>'.$pagemeta['location'].'</h3><h4>'. $link .'</h4></div>'; ?>
+			 if( $e_date ) echo '<div class="quote"><h3>'.date('M j, Y', strtotime($e_date)).'<br>'.get_field('location').'</h3><h4>'. $link .'</h4></div>'; ?>
 		</div>
 
 		<?php } ?>
-	<?php endwhile; // End the loop. Whew. 
-		wp_paginate(); ?>
+	<?php endwhile; ?>
     </div>
 </div>
 

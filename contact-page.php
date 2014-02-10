@@ -3,7 +3,7 @@
 get_header(); ?>
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
-<div id="z1" class="zone contac cf">
+<div id="z1" class="zone contact cf">
 	<div class="wrap widepiccol">
         
         <div class="leftcol mapbox">
@@ -11,8 +11,8 @@ get_header(); ?>
         </div>
         <div class="rightcol textbox">
 
-			<h3><?php the_field('heading'); ?></h3>
-            <p class="subtitle"><?php the_field('subheading'); ?></p>
+			<h3><?php the_field('headline'); ?></h3>
+            <p class="subtitle"><?php the_field('subheadline'); ?></p>
 
         	<div class="entry">
             	<?php the_content(); ?>

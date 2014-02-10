@@ -5,13 +5,19 @@ get_header(); ?>
 	<div class="wrap thincol">
 		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
         <div class="leftcol textbox">
-<?php if($famp_meta){
-	$pagemeta = $famp_meta->the_meta();?>
-			<h3><?php echo $pagemeta['title']; ?></h3>
-            <p class="famsubtitle"><?php echo $pagemeta['subtitle']; ?></p>
-<?php } ?>
+			<h3><?php the_field('headline'); ?></h3>
+            <p class="famsubtitle"><?php the_field('subheadline'); ?></p>
         	<div class="entry">
             	<?php the_content(); ?>
+                <div class="dialogue_sb_wrap">
+                <?php if ( dynamic_sidebar('dialouge_sb') ) : else : endif; ?>
+                <div class="social">
+                    <a class="facebook" title="TMI on Facebook" href="https://www.facebook.com/tmiconsulting">Facebook</a>
+                    <a class="twitter" title="TMI on Twitter" href="https://twitter.com/tmi_consulting">Twitter</a>
+                    <a class="linkedin" title="TMI on LinkedIn" href="http://www.linkedin.com/company/tmi-consulting-inc">LinkedIn</a>
+                    <a class="rss" title="Subscribe to Posts Feed" href="http://feeds.feedburner.com/tmiconsultinginc/wYpV">RSS</a>
+                </div>
+                </div>
             </div>
         </div>
         <?php endwhile; else: ?>
@@ -20,9 +26,7 @@ get_header(); ?>
         <div class="rightcol suppbox">
 			<?php the_post_thumbnail( 'medium' ); ?>
         </div>
-        <div class="clear"></div>
     </div>
-    <div class="clear"></div>
 </div>
 <div class="zone subnav dialogue lt-greenish-brown">
 	<div class="wrap singlecol">
@@ -41,23 +45,13 @@ get_header(); ?>
 		'depth'				 => 1
     ); 
     wp_list_categories($args);	
-        ?></ul>
-        <div class="dialogue_sb_wrap">
-		<?php if ( dynamic_sidebar('dialouge_sb') ) : else : endif; ?>
-        <div class="social">
-        	<a class="facebook" title="TMI on Facebook" href="https://www.facebook.com/tmiconsulting">Facebook</a>
-        	<a class="twitter" title="TMI on Twitter" href="https://twitter.com/tmi_consulting">Twitter</a>
-        	<a class="linkedin" title="TMI on LinkedIn" href="http://www.linkedin.com/company/tmi-consulting-inc">LinkedIn</a>
-        	<a class="rss" title="Subscribe to Posts Feed" href="http://feeds.feedburner.com/tmiconsultinginc/wYpV">RSS</a>
-		</div>
-        </div> 
-        <div class="clear"></div>
+        ?></ul> 
     </div>
 </div>
 	<?php
 	$zbg = array( 'greenish-brown', 'dk-blue','lt-greenish-brown', 'lt-blue'); 
 	$i = 0;
-	global $more;    // Declare global $more (before the loop).
+	global $more; $more = false;   // Declare global $more (before the loop).
 	$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 	$args = array('posts_per_page' => 5, 'paged' => $paged );
 	query_posts($args); ?>

@@ -4,6 +4,12 @@
     
     <p class="subtitle"><?php the_field('subheadline'); ?></p>
     
+    <?php 
+        if( get_field( 'video' ) ) {
+            _e( wp_oembed_get( get_field( 'video' ) ) ); 
+        }
+    ?>
+    
     <div class="entry">
         <?php $more = 0;       // Set (inside the loop) to display content above the more tag.
         the_content('&hellip;Read More'); ?>

@@ -15,8 +15,8 @@ get_header(); ?>
         </div>
         <div class="rightcol textbox">
 
-			<h3><?php //echo $pagemeta['title']; ?></h3>
-            <p class="famsubtitle"><?php //echo $pagemeta['subtitle']; ?></p>
+			<h3><?php the_field('headline'); ?></h3>
+            <p class="famsubtitle"><?php the_field('subheadline'); ?></p>
 
         	<div class="entry">
             	<?php the_content(); ?>

@@ -4,6 +4,11 @@
         <div class="textbox cf">
             <h3><?php the_title(); ?></h3>
             <p class="subtitle"><?php the_field('subheadline'); ?></p>
+            <?php 
+                if( get_field( 'video' ) ) {
+                    _e( wp_oembed_get( get_field( 'video' ) ) ); 
+                }
+            ?>
             <div class="entry">
                 <?php if ( has_post_thumbnail() ) { 
                     the_post_thumbnail( 'medium' ); 

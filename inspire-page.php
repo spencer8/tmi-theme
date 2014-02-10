@@ -9,12 +9,9 @@ get_header(); ?>
 			<?php the_post_thumbnail( 'large' ); ?>
         </div>
         <div class="rightcol textbox">
-			<?php
-             if($famp_meta){
-                $pagemeta = $famp_meta->the_meta();
-                $slides = $pagemeta['slides']; ?>
-                        <h3><?php echo $pagemeta['title']; ?></h3>
-                        <p class="famsubtitle"><?php echo $pagemeta['subtitle']; ?></p>
+            <h3><?php if( get_field('headline') ) { the_field('headline'); } else { the_title(); } ?></h3>
+            <?php if( get_field('subheadline') ) { ?>
+            <p class="famsubtitle"><?php the_field('subheadline'); ?></p>
             <?php } ?>
             <div class="entry">
                 <?php the_content(); ?>
@@ -25,12 +22,9 @@ get_header(); ?>
 	   } else { // no post thumbnail ?>
 	<div class="wrap thincol">
         <div class="leftcol suppbox">
-			<?php
-             if($famp_meta){
-                $pagemeta = $famp_meta->the_meta();
-                $slides = $pagemeta['slides']; ?>
-                        <h3><?php echo $pagemeta['title']; ?></h3>
-                        <p class="famsubtitle"><?php echo $pagemeta['subtitle']; ?></p>
+            <h3><?php if( get_field('headline') ) { the_field('headline'); } else { the_title(); } ?></h3>
+            <?php if( get_field('subheadline') ) { ?>
+            <p class="famsubtitle"><?php the_field('subheadline'); ?></p>
             <?php } ?>
         </div>                
         <div class="rightcol textbox">

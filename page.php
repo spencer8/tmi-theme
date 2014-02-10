@@ -15,11 +15,10 @@ $contentcol = 'textbox';
     <div class="wrap textcol">
         <?php } ?>
         <div class="<?php echo $contentcol; ?> textbox">
-<?php if($famp_meta){
-	$pagemeta = $famp_meta->the_meta();?>
-			<h3><?php if($pagemeta['title'] && $pagemeta['title'] != '' ) { echo $pagemeta['title']; } else { the_title(); } ?></h3>
-            <p class="famsubtitle"><?php echo $pagemeta['subtitle']; ?></p>
-<?php } ?>
+			<h3><?php if( get_field('headline') ) { the_field('headline'); } else { the_title(); } ?></h3>
+            <?php if( get_field('subheadline') ) { ?>
+            <p class="famsubtitle"><?php the_field('subheadline'); ?></p>
+            <?php } ?>
         	<div class="entry">
             	<?php the_content(); ?>
                 <?php if ( is_page(5) ) { ?><script src="http://singlebrook.com/bcorps/widget.js"></script><?php } ?>
